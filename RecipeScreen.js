@@ -16,7 +16,7 @@ const RecipeScreen = ({route,navigation}) =>{
     const [loaded, setLoaded] = useState(false);
     const [Nutritions, setNutritions] = useState(null);
 
-    const ImageLink = 'https://0267-182-1-115-74.ngrok.io/api/resource/'+recipe.Image_Name+'.jpg';
+    const ImageLink = 'https://413d-35-229-186-218.ngrok.io/api/resource/'+recipe.Image_Name+'.jpg';
 
     
     return(

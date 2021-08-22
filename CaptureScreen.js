@@ -65,7 +65,7 @@ const CaptureScreen = ({navigation}) => {
         
         try {
             const response = await fetch(
-            'https://0267-182-1-115-74.ngrok.io/api/yolov5sv1',
+            'https://413d-35-229-186-218.ngrok.io/api/yolov5sv1',
             {
                 method:'POST',
                 headers: {

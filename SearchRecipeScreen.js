@@ -16,7 +16,7 @@ const SearchRecipeScreen = ({route,navigation}) => {
         formData.append('query', query.toString());
         try {
             const response = await fetch(
-            'https://0267-182-1-115-74.ngrok.io/api/search',
+            'https://413d-35-229-186-218.ngrok.io/api/search',
             {
                 method:'POST',
                 headers: {
