@@ -1,15 +1,35 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import CaptureScreen from './CaptureScreen';
+import SearchRecipeScreen from './SearchRecipeScreen';
+import RecipeScreen from './RecipeScreen';
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+    
+    <NavigationContainer >
+      <Stack.Navigator 
+        initialRouteName="Capture"
+        
+        //screens
+      >
+        <Stack.Screen name="Capture" options={{headerStyle:{backgroundColor:'black'},title:''}} component={CaptureScreen}/>
+        <Stack.Screen name="Search Recipe" options={{title:'Recipes'}} component={SearchRecipeScreen}/>
+        <Stack.Screen name="Recipe" component={RecipeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer> 
+    </SafeAreaProvider>
   );
 }
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
