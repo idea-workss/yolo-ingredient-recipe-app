@@ -108,8 +108,8 @@ const CaptureScreen = ({navigation}) => {
             />  
             }
             
-            <View style={{flex:1.5, marginVertical:30}}>
-                    <Text style={{color:'white', backgroundColor:'black'}}>Make sure the image is not too dark and if possible the background must have one color</Text>
+            <View style={{flex:1.5, marginBottom:30}}>
+                    <Text style={{color:'white', backgroundColor:'black', marginVertical:5}}>Make sure the image is not too dark and if possible the background must have one color</Text>
                     {isLoading?
                     <Button
                     title='Loading . . .'
