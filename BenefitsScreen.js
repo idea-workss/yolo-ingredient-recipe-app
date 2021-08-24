@@ -1,4 +1,4 @@
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, ActivityIndicator } from 'react-native';
 import { ListItem, Avatar, Text, Card } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import React, { useState, useEffect } from 'react';
@@ -66,7 +66,7 @@ const BenefitsScreen = ({route,navigation}) => {
         <View style={{flex:1}}>
             <View style={{flex:14}}>
                 <ScrollView style={{}}>
-                    {loaded &&
+                    {loaded?
                     benefits.map((item,i)=>{
                         return(<Card style={{marginBottom:10}}>
                                 <Card.Title>{toPascalCase(query[i])}</Card.Title>
@@ -81,6 +81,8 @@ const BenefitsScreen = ({route,navigation}) => {
                                     }
                         </Card>);
                     })
+                    :
+                    <ActivityIndicator />
                     }
                 </ScrollView>
             </View>

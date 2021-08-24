@@ -1,4 +1,4 @@
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, ActivityIndicator } from 'react-native';
 import { ListItem, Avatar, Text, Card } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import React, { useState, useEffect } from 'react';
@@ -108,7 +108,7 @@ const SearchRecipeScreen = ({route,navigation}) => {
         <View style={{flex:1}}>
             
             <View style={{flex:1, marginBottom:25, marginHorizontal:15, marginTop:15, borderColor:'grey'}}>
-                {loaded && 
+                {loaded ?
                 <FlatList
                     keyExtractor={(item)=>{item['Unnamed: 0'].toString()}}
                     data={recipes}
@@ -124,6 +124,8 @@ const SearchRecipeScreen = ({route,navigation}) => {
                         </ListItem>
                       )}
                 />
+                :
+                <ActivityIndicator />
                 }
 
             </View>
