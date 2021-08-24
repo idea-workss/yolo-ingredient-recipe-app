@@ -7,6 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import CaptureScreen from './CaptureScreen';
 import SearchRecipeScreen from './SearchRecipeScreen';
 import RecipeScreen from './RecipeScreen';
+import BenefitsScreen from './BenefitsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ const App = () => {
         //screens
       >
         <Stack.Screen name="Capture" options={{headerStyle:{backgroundColor:'black'},title:''}} component={CaptureScreen}/>
+        <Stack.Screen name="Benefits" component={BenefitsScreen}/>
         <Stack.Screen name="Search Recipe" options={{title:'Recipes'}} component={SearchRecipeScreen}/>
         <Stack.Screen name="Recipe" component={RecipeScreen} />
       </Stack.Navigator>

@@ -18,6 +18,43 @@ const RecipeScreen = ({route,navigation}) =>{
 
     const ImageLink = 'https://413d-35-229-186-218.ngrok.io/api/resource/'+recipe.Image_Name+'.jpg';
 
+    const fetchMyAPI = async () =>{
+        let formData = new FormData();
+        formData.append('cooking', recipe.Title);
+        try {
+            const response = await fetch(
+            'https://413d-35-229-186-218.ngrok.io/api/nutrient',
+            {
+                method:'POST',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Accept:'application/json'
+                },
+                body:formData,
+            }
+            );
+            if (response.ok) {
+                const contentType = response.headers.get('content-type');
+
+                if (contentType && contentType.indexOf('application/json') !== -1) {
+                    const json = await response.json();
+                    setNutritions(json);
+                    console.log(json);
+                } else {
+                    console.log('empty response')
+                }
+            }
+            
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    
+    useEffect(() => {
+        fetchMyAPI();
+        setLoaded(true);
+    },[]);
     
     return(
         <ScrollView>
@@ -63,6 +100,27 @@ const RecipeScreen = ({route,navigation}) =>{
                     })
                 }
             </Card>
+            {loaded && Nutritions && <Card style={{}}>
+                <Card.Title>Nutrients</Card.Title>
+                <Card.Divider/>
+                {
+                    Nutritions.map((item,i)=>{                    
+                        return(
+                            <View style={{flexDirection:'row',borderColor:'lightgray',borderBottomWidth:0.3}}>
+                                <Text style={{flex:3, textAlignVertical:'center'}}>
+                                    {item.nutrientName}
+                                </Text>
+                                <Text style={{flex:1, textAlignVertical:'center', marginLeft:10}}>
+                                    {item.nutrientNumber}
+                                </Text>
+                            </View>
+                        );
+                    
+                })
+                }
+                
+            </Card>
+            }
 
         </ScrollView>
     );

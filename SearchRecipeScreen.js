@@ -8,6 +8,7 @@ import { Chip } from 'react-native-elements/dist/buttons/Chip';
 const SearchRecipeScreen = ({route,navigation}) => {
     const [loaded, setLoaded] = useState(false);
     const [recipes, setRecipes] = useState(null);
+    const [benefits, setBenefits] = useState(null);
 
     const {query} = route.params;
 
@@ -42,26 +43,70 @@ const SearchRecipeScreen = ({route,navigation}) => {
             console.error(error);
         }
     }
+
+    const fetchMyAPI2 = async () =>{
+        try {
+            const resbenefits = await Promise.all(
+                query.map(async (q) => {
+                    let formData = new FormData();
+                    formData.append('fruit', q.toString());
+                    const response = await fetch(
+                        'https://413d-35-229-186-218.ngrok.io/api/benefits',
+                        {
+                            method:'POST',
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                                Accept:'application/json'
+                            },
+                            body:formData,
+                        }
+                    );
+                  return await response.json();
+                })
+            );
+            
+            setBenefits(resbenefits);
+            console.log(resbenefits);
+            /*
+            if (response.ok) {
+                const contentType = response.headers.get('content-type');
+
+                if (contentType && contentType.indexOf('application/json') !== -1) {
+                    const json = await response.json();
+                    setRecipes(json);
+                    setLoaded(true);
+                } else {
+                    console.log('empty response')
+                }
+            }*/
+            
+        } catch (error) {
+            console.error(error);
+        }
+    }
     
     useEffect(() => {
         fetchMyAPI();
+        fetchMyAPI2();
     },[]);
+
+
+    const toPascalCase = (string) => {
+        return `${string}`
+          .replace(new RegExp(/[-_]+/, 'g'), ' ')
+          .replace(new RegExp(/[^\w\s]/, 'g'), '')
+          .replace(
+            new RegExp(/\s+(.)(\w+)/, 'g'),
+            ($1, $2, $3) => `${$2.toUpperCase() + $3.toLowerCase()}`
+          )
+          .replace(new RegExp(/\s/, 'g'), '')
+          .replace(new RegExp(/\w/), s => s.toUpperCase());
+      }
 
     
     return(
         <View style={{flex:1}}>
-            <Card style={{flex:1}}>
-                <Text>
-                    Image Result : {
-                        query.map((item,i)=>{
-                            if(i==query.length-1){
-                                return item;
-                            }
-                            return item+', '
-                        })
-                    }
-                </Text>     
-            </Card>
+            
             <View style={{flex:1, marginBottom:25, marginHorizontal:15, marginTop:15, borderColor:'grey'}}>
                 {loaded && 
                 <FlatList

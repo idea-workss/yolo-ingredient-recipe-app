@@ -12,6 +12,7 @@ const CaptureScreen = ({navigation}) => {
     const [dataImage, setDataImage] = useState(null);
     const [returnedData, setReturnedData] = useState(null);
     const isFocused = useIsFocused();
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -30,6 +31,7 @@ const CaptureScreen = ({navigation}) => {
 
     const takePicture = async () => {
         if (cameraRef.current) {
+            setIsLoading(true);
             const options = {quality: 1, base64: false};
             await cameraRef.current.takePictureAsync(options)
               .then(res=>getYoloResult(res))
@@ -38,10 +40,10 @@ const CaptureScreen = ({navigation}) => {
 
     const moveToSearch = (data) => {
         let unique = undefined;
-        console.log(data)
+        //console.log(data)
         if (data === undefined || data === null || data.length == 0) {
             //debug
-            unique = ['kiwi']
+            unique = ['lemon','ginger']
 
         } else {
             const names = [];
@@ -50,8 +52,11 @@ const CaptureScreen = ({navigation}) => {
             }
             unique = names.filter((v, i, a) => a.indexOf(v) === i);
         }
-        console.log(unique);
-        navigation.navigate('Search Recipe',{query:unique})
+        //console.log(unique);
+        //navigation.navigate('Search Recipe',{query:unique})
+        setIsLoading(false);
+        //go to benefits first
+        navigation.navigate('Benefits',{query:unique})
     }
 
     const getYoloResult = async (res) => {
@@ -103,11 +108,20 @@ const CaptureScreen = ({navigation}) => {
             />  
             }
             
-            <View style={{flex:1, marginVertical:30}}>
+            <View style={{flex:1.5, marginVertical:30}}>
+                    <Text style={{color:'white', backgroundColor:'black'}}>Make sure the image is not too dark and if possible the background must have one color</Text>
+                    {isLoading?
                     <Button
-                        title='Capture'
-                        onPress={takePicture}
+                    title='Loading . . .'
+                    disabled
                     />
+                    :
+                    <Button
+                    title='Capture'
+                    onPress={takePicture}
+                    />
+                    }
+                    
             </View>
             
         </View>
