@@ -17,7 +17,7 @@ const SearchRecipeScreen = ({route,navigation}) => {
         formData.append('query', query.toString());
         try {
             const response = await fetch(
-            'https://413d-35-229-186-218.ngrok.io/api/search',
+            'https://3b63-35-229-186-218.ngrok.io/api/search',
             {
                 method:'POST',
                 headers: {
@@ -51,7 +51,7 @@ const SearchRecipeScreen = ({route,navigation}) => {
                     let formData = new FormData();
                     formData.append('fruit', q.toString());
                     const response = await fetch(
-                        'https://413d-35-229-186-218.ngrok.io/api/benefits',
+                        'https://3b63-35-229-186-218.ngrok.io/api/benefits',
                         {
                             method:'POST',
                             headers: {

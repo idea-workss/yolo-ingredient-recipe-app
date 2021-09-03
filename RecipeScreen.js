@@ -16,14 +16,14 @@ const RecipeScreen = ({route,navigation}) =>{
     const [loaded, setLoaded] = useState(false);
     const [Nutritions, setNutritions] = useState(null);
 
-    const ImageLink = 'https://413d-35-229-186-218.ngrok.io/api/resource/'+recipe.Image_Name+'.jpg';
+    const ImageLink = 'https://3b63-35-229-186-218.ngrok.io/api/resource/'+recipe.Image_Name+'.jpg';
 
     const fetchMyAPI = async () =>{
         let formData = new FormData();
         formData.append('cooking', recipe.Title);
         try {
             const response = await fetch(
-            'https://413d-35-229-186-218.ngrok.io/api/nutrient',
+            'https://3b63-35-229-186-218.ngrok.io/api/nutrient',
             {
                 method:'POST',
                 headers: {
